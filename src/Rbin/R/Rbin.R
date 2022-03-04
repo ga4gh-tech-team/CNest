@@ -524,7 +524,16 @@ run_hmm_rbin <- function(rbin_dir, sample_name, index_file, cov_file, cor_dir, g
 	get_all_data_by_type <- function(indexfile, binfiles, type="mixed") {
 		index = read.table(indexfile)
 		chrs = unique(index[,1])
-		return(do.call(rbind, sapply(chrs, function(x) RbinRead_exome_ratio(x, min(index[index[,1]==x,2]), max(index[index[,1]==x,3]), type, indexfile, binfiles))))
+
+		# GA4GH (jb-adams) edit, for-loop to construct returned data frame
+		# original rbind + sapply not working with mini dataset
+		data <- NULL
+		for (x in 1:length(chrs)) {
+			d <- RbinRead_exome_ratio(x, min(index[index[,1]==x,2]), max(index[index[,1]==x,3]), type, indexfile, binfiles)
+			data <- rbind(data,d)
+		}
+		return(data)
+		# return(do.call(rbind, sapply(chrs, function(x) RbinRead_exome_ratio(x, min(index[index[,1]==x,2]), max(index[index[,1]==x,3]), type, indexfile, binfiles))))
 	}
 	process_and_collect <- function(m) {
 		pos = m[,1:3]
