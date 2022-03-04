@@ -97,14 +97,20 @@ RUN R CMD INSTALL mixtools_1.2.0.tar.gz
 COPY src/ViteRbi_1.0.tar.gz /
 RUN R CMD INSTALL ViteRbi_1.0.tar.gz
 
-COPY src/Rbin_1.1.tar.gz /
-RUN R CMD INSTALL Rbin_1.1.tar.gz
+# GA4GH EDIT
+# COPY src/Rbin_1.1.tar.gz /
+# RUN R CMD INSTALL Rbin_1.1.tar.gz
+COPY src/Rbin_1.2.tar.gz /
+RUN R CMD INSTALL Rbin_1.2.tar.gz
+
 
 ########################################################################
 # Remove package sources
 ########################################################################
 
-RUN rm -rf /$CNV_APP /Rbin_1.1.tar.gz /ViteRbi_1.0.tar.gz /samtools-$VERSION /htslib /segmented_1.2-0.tar.gz /kernlab_0.9-29.tar.gz /MASS_7.3-51.6.tar.gz /survival_3.2-3.tar.gz /mixtools_1.2.0.tar.gz 
+# GA4GH EDIT
+# RUN rm -rf /$CNV_APP /Rbin_1.1.tar.gz /ViteRbi_1.0.tar.gz /samtools-$VERSION /htslib /segmented_1.2-0.tar.gz /kernlab_0.9-29.tar.gz /MASS_7.3-51.6.tar.gz /survival_3.2-3.tar.gz /mixtools_1.2.0.tar.gz 
+RUN rm -rf /$CNV_APP /Rbin_1.2.tar.gz /ViteRbi_1.0.tar.gz /samtools-$VERSION /htslib /segmented_1.2-0.tar.gz /kernlab_0.9-29.tar.gz /MASS_7.3-51.6.tar.gz /survival_3.2-3.tar.gz /mixtools_1.2.0.tar.gz 
 
 ########################################################################
 # Setup the mount locations and copy some resources
